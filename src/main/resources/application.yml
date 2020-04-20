@@ -6,8 +6,17 @@ spring:
   application.name: 'statistics'
   profiles.active: local
 
+  jpa:
+    open-in-view: false
+
   datasource:
     url: jdbc:h2:mem:stub
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: local_signing_key
 
 logging:
   level:
