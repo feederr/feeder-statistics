@@ -1,0 +1,7 @@
+databaseChangeLog:
+
+  - logicalFilePath: no-path
+
+  - include:
+      file: item-statistics/20200603.REL1-77.create-item-statistics-table.yaml
+      relativeToChangelogFile: true

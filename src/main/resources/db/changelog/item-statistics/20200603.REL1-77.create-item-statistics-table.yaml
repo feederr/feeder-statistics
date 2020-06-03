@@ -1,0 +1,27 @@
+databaseChangeLog:
+
+  - logicalFilePath: no-path
+
+  - changeSet:
+      id: create-item-statistics
+      author: voroshen.av@gmail.com
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                  name: is_item_id
+                  type: BINARY(16)
+              - column:
+                  name: is_number_of_views
+                  type: BIGINT
+              - column:
+                  name: is_created
+                  defaultValueComputed: now()
+                  type: datetime
+              - column:
+                  name: is_modified
+                  defaultValueComputed: now()
+                  type: datetime
+            tableName: item_statistics
