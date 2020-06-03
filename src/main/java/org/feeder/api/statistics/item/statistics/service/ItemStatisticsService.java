@@ -5,12 +5,14 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.feeder.api.core.exception.EntityNotFoundException;
+import org.feeder.api.statistics.channel.statistics.ChannelStatisticsRepository;
+import org.feeder.api.statistics.channel.statistics.entity.ChannelStatistics;
 import org.feeder.api.statistics.item.statistics.ItemStatisticsMapper;
 import org.feeder.api.statistics.item.statistics.ItemStatisticsRepository;
-import org.feeder.api.statistics.item.statistics.vo.ItemStatisticsResponseVO;
 import org.feeder.api.statistics.item.statistics.entity.ItemStatistics;
 import org.feeder.api.statistics.item.statistics.event.ItemRemovedEvent;
 import org.feeder.api.statistics.item.statistics.event.ItemViewedEvent;
+import org.feeder.api.statistics.item.statistics.vo.ItemStatisticsResponseVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,17 +27,21 @@ public class ItemStatisticsService {
 
   private final ItemStatisticsMapper mapper;
 
+  private final ChannelStatisticsRepository channelStatisticsRepository;
+
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
   public void updateViews(ItemViewedEvent event) {
 
-    Optional<ItemStatistics> entityOpt = repository.findById(event.getItemId());
+    Optional<ItemStatistics> itemOpt = repository.findById(event.getItemId());
+    Optional<ChannelStatistics> channelOpt =
+        channelStatisticsRepository.findById(event.getChannelId());
 
-    ItemStatistics entity;
+    ItemStatistics itemEntity;
 
-    if (entityOpt.isPresent()) {
+    if (itemOpt.isPresent()) {
 
       log.debug("Found {} by itemId: {}", ItemStatistics.class.getSimpleName(), event.getItemId());
-      entity = entityOpt.get();
+      itemEntity = itemOpt.get();
 
     } else {
 
@@ -45,15 +51,40 @@ public class ItemStatisticsService {
           event.getItemId()
       );
 
-      entity = new ItemStatistics();
-      entity.setItemId(event.getItemId());
-      entity.setChannelId(entity.getChannelId());
-      entity.setNew(true);
+      itemEntity = new ItemStatistics();
+      itemEntity.setItemId(event.getItemId());
+      itemEntity.setChannelId(event.getChannelId());
+      itemEntity.setNew(true);
     }
 
-    entity.incrementNumberOfViews();
+    if (channelOpt.isPresent()) {
 
-    repository.save(entity);
+      log.debug(
+          "Found {} by channelId: {} for itemId: {}",
+          ChannelStatistics.class.getSimpleName(),
+          event.getChannelId(),
+          event.getItemId()
+      );
+
+    } else {
+
+      log.debug(
+          "{} not found by channelId: {} for itemId: {}. Creating new",
+          ChannelStatistics.class.getSimpleName(),
+          event.getChannelId(),
+          event.getItemId()
+      );
+
+      ChannelStatistics channelEnity = new ChannelStatistics();
+      channelEnity.setChannelId(event.getChannelId());
+      channelEnity.setNew(true);
+
+      channelStatisticsRepository.save(channelEnity);
+    }
+
+    itemEntity.incrementNumberOfViews();
+
+    repository.save(itemEntity);
   }
 
   @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)

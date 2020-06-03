@@ -25,7 +25,7 @@ public class ChannelStatisticsListener {
   private String channelUnsubscribedTopic;
 
   @Value(CHANNEL_REMOVED_TOPIC)
-  private String channelRemoveTopic;
+  private String channelRemovedTopic;
 
   @KafkaListener(topics = CHANNEL_SUBSCRIBED_TOPIC, groupId = GROUP_ID)
   public void listenChannelSubscribedEvent(ChannelSubscribedEvent event) {
@@ -60,7 +60,7 @@ public class ChannelStatisticsListener {
         "{} consumed {} from topic: \n{}",
         ChannelStatisticsListener.class.getSimpleName(),
         event,
-        channelRemoveTopic
+        channelRemovedTopic
     );
 
     service.removeChannel(event);

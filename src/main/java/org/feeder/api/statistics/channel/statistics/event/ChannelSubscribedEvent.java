@@ -1,16 +1,12 @@
 package org.feeder.api.statistics.channel.statistics.event;
 
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ChannelSubscribedEvent extends ChannelBaseEvent {
 
-  public ChannelSubscribedEvent(UUID channelId) {
-    super(channelId);
-  }
 }

@@ -51,7 +51,7 @@ public class ChannelStatisticsService {
       );
 
       entity = new ChannelStatistics();
-      entity.setChannelId(entity.getChannelId());
+      entity.setChannelId(event.getChannelId());
       entity.setNew(true);
     }
 
