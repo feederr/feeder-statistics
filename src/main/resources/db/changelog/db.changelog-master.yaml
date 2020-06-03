@@ -3,5 +3,9 @@ databaseChangeLog:
   - logicalFilePath: no-path
 
   - include:
+      file: channel-statistics/20200406.REL1-74.create-channel-statistics.table.yaml
+      relativeToChangelogFile: true
+
+  - include:
       file: item-statistics/20200603.REL1-77.create-item-statistics-table.yaml
       relativeToChangelogFile: true

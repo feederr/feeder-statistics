@@ -1,7 +1,7 @@
-package org.feeder.api.statistics.itemstatistics;
+package org.feeder.api.statistics.item.statistics;
 
 import java.util.UUID;
-import org.feeder.api.statistics.itemstatistics.entity.ItemStatistics;
+import org.feeder.api.statistics.item.statistics.entity.ItemStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

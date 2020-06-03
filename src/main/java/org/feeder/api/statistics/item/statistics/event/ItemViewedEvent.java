@@ -1,4 +1,4 @@
-package org.feeder.api.statistics.itemstatistics.event;
+package org.feeder.api.statistics.item.statistics.event;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class ItemViewedEvent {
 
   private UUID itemId;
+
+  private UUID channelId;
 }
