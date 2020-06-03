@@ -1,4 +1,4 @@
-package org.feeder.api.statistics.itemstatistics.vo;
+package org.feeder.api.statistics.item.statistics.vo;
 
 import java.util.UUID;
 import lombok.Data;

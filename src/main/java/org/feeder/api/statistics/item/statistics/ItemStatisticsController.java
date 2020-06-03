@@ -1,10 +1,10 @@
-package org.feeder.api.statistics.itemstatistics;
+package org.feeder.api.statistics.item.statistics;
 
-import static org.feeder.api.statistics.itemstatistics.ItemStatisticsController.ITEM_STATISTICS_PATH;
+import static org.feeder.api.statistics.item.statistics.ItemStatisticsController.ITEM_STATISTICS_PATH;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.feeder.api.statistics.itemstatistics.service.ItemStatisticsService;
-import org.feeder.api.statistics.itemstatistics.vo.ItemStatisticsResponseVO;
+import org.feeder.api.statistics.item.statistics.service.ItemStatisticsService;
+import org.feeder.api.statistics.item.statistics.vo.ItemStatisticsResponseVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -11,7 +11,12 @@ databaseChangeLog:
               - column:
                   constraints:
                     primaryKey: true
-                  name: is_item_id
+                  name: it_id
+                  type: BINARY(16)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: ch_id
                   type: BINARY(16)
               - column:
                   name: is_number_of_views
@@ -25,3 +30,18 @@ databaseChangeLog:
                   defaultValueComputed: now()
                   type: datetime
             tableName: item_statistics
+
+  - changeSet:
+      id: create-foreign-key-to-channel-statistics-in-item-statistics
+      author: voroshen.av@gmail.com
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_item_statistics_ch_id
+            baseColumnNames: ch_id
+            baseTableName: item_statistics
+            referencedColumnNames: ch_id
+            referencedTableName:  channel_statistics
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: CASCADE
+            onUpdate: CASCADE

@@ -1,0 +1,27 @@
+databaseChangeLog:
+
+  - logicalFilePath: no-path
+
+  - changeSet:
+      id: create-channel-statistics
+      author: voroshen.av@gmail.com
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                  name: ch_id
+                  type: BINARY(16)
+              - column:
+                  name: cs_number_of_subscribers
+                  type: BIGINT
+              - column:
+                  name: cs_created
+                  defaultValueComputed: now()
+                  type: datetime
+              - column:
+                  name: cs_modified
+                  defaultValueComputed: now()
+                  type: datetime
+            tableName: channel_statistics

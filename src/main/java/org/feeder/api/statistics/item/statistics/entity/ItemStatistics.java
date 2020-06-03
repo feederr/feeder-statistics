@@ -1,4 +1,4 @@
-package org.feeder.api.statistics.itemstatistics.entity;
+package org.feeder.api.statistics.item.statistics.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.feeder.api.core.domain.BaseEntity;
@@ -19,8 +20,12 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class ItemStatistics extends BaseEntity<UUID> {
 
   @Id
-  @Column(name = "is_item_id", updatable = false)
+  @Column(name = "it_id", updatable = false)
   private UUID itemId;
+
+  @NotNull
+  @Column(name = "ch_id", updatable = false)
+  private UUID channelId;
 
   @Column(name = "is_number_of_views")
   private long numberOfViews;
